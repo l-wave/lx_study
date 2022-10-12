@@ -1,0 +1,7 @@
+<resources>
+    <string name="hello_lx">hellolx2</string>
+    <string name="homework">你好android</string>
+    <string name="next">下一个</string>
+    <string name="previous">上一个</string>
+    <string name="app_name">BookShow</string>
+</resources>
