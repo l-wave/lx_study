@@ -4,11 +4,22 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android_project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1545" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/activity_about.xml" value="0.25364583333333335" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/activity_batch_add.xml" value="0.25364583333333335" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/activity_book_detail_content.xml" value="0.25364583333333335" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/activity_book_detail_header.xml" value="0.25364583333333335" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/activity_book_edit.xml" value="0.25364583333333335" />
         <entry key="..\:/Android_project/app/src/main/res/layout/activity_image_view_main.xml" value="0.23802083333333332" />
-        <entry key="..\:/Android_project/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/activity_input_shop_item.xml" value="0.2526041666666667" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/activity_main_coordinate.xml" value="0.25364583333333335" />
         <entry key="..\:/Android_project/app/src/main/res/layout/booklist_main.xml" value="0.225" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/header_booklist_recyclerview.xml" value="0.25364583333333335" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/item_booklist_recyclerview.xml" value="0.25364583333333335" />
         <entry key="..\:/Android_project/app/src/main/res/layout/layout.xml" value="0.22826086956521738" />
         <entry key="..\:/Android_project/app/src/main/res/layout/recycle_main.xml" value="0.225" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/toolbar_bookedit.xml" value="0.25364583333333335" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/toolbar_main.xml" value="0.25364583333333335" />
       </map>
     </option>
   </component>
