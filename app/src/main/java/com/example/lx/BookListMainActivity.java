@@ -3,6 +3,7 @@ package com.example.lx;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,16 +22,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lx.data.DataSaver;
 import com.example.lx.data.ShopItem;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
 
 public class BookListMainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     public static final int MENU_ID_ADD = 1;
     public static final int MENU_ID_UPDATE = 2;
     public static final int MENU_ID_DELETE = 3;
     private ArrayList<ShopItem> shopItems;
     private MainRecycleViewAdapter mainRecycleViewAdapter;
+    private FloatingActionMenu mActionAddButton;
+    private FloatingActionButton fab1;
+    private FloatingActionButton fab2;
 
     private ActivityResultLauncher<Intent> addDataLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult()
             ,result -> {
@@ -52,13 +59,14 @@ public class BookListMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recycle_main);
+        setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerViewMain=findViewById(R.id.recycle_view_book);
+        RecyclerView recyclerViewMain=findViewById(R.id.booklist_recycler_view);
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewMain.setLayoutManager(linearLayoutManager);
+
 
         //load数据
         DataSaver dataSaver=new DataSaver();
@@ -68,8 +76,10 @@ public class BookListMainActivity extends AppCompatActivity {
         }
         mainRecycleViewAdapter= new MainRecycleViewAdapter(shopItems);
         recyclerViewMain.setAdapter(mainRecycleViewAdapter);
-
+        //设置悬浮按钮点击事件的监听
+        setFloatingActionButton();
     }
+
 
     private ActivityResultLauncher<Intent> updateDataLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult()
             ,result -> {
@@ -127,6 +137,31 @@ public class BookListMainActivity extends AppCompatActivity {
                 break;
         }
         return super.onContextItemSelected(item);
+    }
+
+    private void setFloatingActionButton() {
+        mActionAddButton = (FloatingActionMenu) findViewById(R.id.fab_menu_add);
+        fab1 = (FloatingActionButton) findViewById(R.id.fab_menu_item_1);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "fab menu item 1 clicked");
+                Intent intent= new Intent(BookListMainActivity.this,InputShopItemActivity.class);
+                intent.putExtra("position",-1);
+                addDataLauncher.launch(intent);
+
+            }
+        });
+        fab2 = (FloatingActionButton) findViewById(R.id.fab_menu_item_2);
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "fab menu item 2 clicked");
+                Intent intent= new Intent(BookListMainActivity.this,InputShopItemActivity.class);
+                intent.putExtra("position",-1);
+                addDataLauncher.launch(intent);
+            }
+        });
     }
 
 
