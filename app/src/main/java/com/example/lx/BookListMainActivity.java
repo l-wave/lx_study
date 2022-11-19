@@ -20,8 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lx.data.DataSaver;
 import com.example.lx.data.ShopItem;
+import com.example.lx.data.DataSaver;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -50,7 +50,7 @@ public class BookListMainActivity extends AppCompatActivity {
                         double price=bundle.getDouble("price");
                         int position=bundle.getInt("position");
                         shopItems.add(position+1, new ShopItem(title,price,R.drawable.book_1) );
-                        new DataSaver().Save(this,shopItems);
+                        new DataSaver().Save(this, shopItems);
                         mainRecycleViewAdapter.notifyItemInserted(position+1);
                     }
                 }
@@ -70,7 +70,7 @@ public class BookListMainActivity extends AppCompatActivity {
 
         //load数据
         DataSaver dataSaver=new DataSaver();
-        shopItems=dataSaver.Load(this);
+        shopItems =dataSaver.Load(this);
         if(shopItems.size()==0) {
             shopItems.add(new ShopItem("item 0", Math.random() * 10, R.drawable.book_1));
         }
@@ -93,7 +93,7 @@ public class BookListMainActivity extends AppCompatActivity {
                         int position=bundle.getInt("position");
                         shopItems.get(position).setTitle(title);
                         shopItems.get(position).setPrice(price);
-                        new DataSaver().Save(this,shopItems);
+                        new DataSaver().Save(this, shopItems);
                         mainRecycleViewAdapter.notifyItemChanged(position);
                     }
                 }
@@ -111,8 +111,8 @@ public class BookListMainActivity extends AppCompatActivity {
             case MENU_ID_UPDATE:
                 Intent intentUpdate=new Intent(this, InputShopItemActivity.class);
                 intentUpdate.putExtra("position",item.getOrder());
-                intentUpdate.putExtra("title",shopItems.get(item.getOrder()).getTitle());
-                intentUpdate.putExtra("price",shopItems.get(item.getOrder()).getPrice());
+                intentUpdate.putExtra("title", shopItems.get(item.getOrder()).getTitle());
+                intentUpdate.putExtra("price", shopItems.get(item.getOrder()).getPrice());
                 updateDataLauncher.launch(intentUpdate);
                 break;
             case MENU_ID_DELETE:
@@ -124,7 +124,7 @@ public class BookListMainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 shopItems.remove(item.getOrder());
-                                new DataSaver().Save(BookListMainActivity.this,shopItems);
+                                new DataSaver().Save(BookListMainActivity.this, shopItems);
                                 mainRecycleViewAdapter.notifyItemRemoved(item.getOrder());
                             }
                         }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
