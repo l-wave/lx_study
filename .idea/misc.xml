@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android_project/app/src/main/res/drawable/ic_bookshelf.xml" value="0.1825" />
+        <entry key="..\:/Android_project/app/src/main/res/drawable/ic_label.xml" value="0.1825" />
         <entry key="..\:/Android_project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1545" />
+        <entry key="..\:/Android_project/app/src/main/res/drawable/ic_notes.xml" value="0.1825" />
+        <entry key="..\:/Android_project/app/src/main/res/drawable/ic_reading_status.xml" value="0.1825" />
+        <entry key="..\:/Android_project/app/src/main/res/drawable/ic_website.xml" value="0.1825" />
         <entry key="..\:/Android_project/app/src/main/res/layout/activity_about.xml" value="0.25364583333333335" />
         <entry key="..\:/Android_project/app/src/main/res/layout/activity_batch_add.xml" value="0.25364583333333335" />
         <entry key="..\:/Android_project/app/src/main/res/layout/activity_book_detail_content.xml" value="0.25364583333333335" />
@@ -20,6 +25,7 @@
         <entry key="..\:/Android_project/app/src/main/res/layout/recycle_main.xml" value="0.21810699588477367" />
         <entry key="..\:/Android_project/app/src/main/res/layout/toolbar_bookedit.xml" value="0.25364583333333335" />
         <entry key="..\:/Android_project/app/src/main/res/layout/toolbar_main.xml" value="0.25364583333333335" />
+        <entry key="..\:/Android_project/app/src/main/res/layout/view_cover_and_info.xml" value="0.25364583333333335" />
       </map>
     </option>
   </component>
