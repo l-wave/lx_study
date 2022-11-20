@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Lx"
         tools:targetApi="31">
         <activity
-            android:name=".InputShopItemActivity"
+            android:name=".InputBookActivity"
             android:exported="false" />
         <activity
             android:name=".BookListMainActivity"

@@ -26,7 +26,11 @@
         <entry key="..\:/Android_project/app/src/main/res/layout/toolbar_bookedit.xml" value="0.25364583333333335" />
         <entry key="..\:/Android_project/app/src/main/res/layout/toolbar_main.xml" value="0.25364583333333335" />
         <entry key="..\:/Android_project/app/src/main/res/layout/view_cover_and_info.xml" value="0.25364583333333335" />
-        <entry key="..\:/Android_project/app/src/main/res/menu/menu_main.xml" value="0.1" />
+        <entry key="..\:/Android_project/app/src/main/res/menu/menu_batchadd.xml" value="0.15" />
+        <entry key="..\:/Android_project/app/src/main/res/menu/menu_bookdetail.xml" value="0.2" />
+        <entry key="..\:/Android_project/app/src/main/res/menu/menu_bookedit.xml" value="0.264" />
+        <entry key="..\:/Android_project/app/src/main/res/menu/menu_main.xml" value="0.2" />
+        <entry key="..\:/Android_project/app/src/main/res/menu/menu_multiselect.xml" value="0.15" />
       </map>
     </option>
   </component>

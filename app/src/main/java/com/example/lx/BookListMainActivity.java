@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lx.data.ShopItem;
+import com.example.lx.data.BookItem;
 import com.example.lx.data.DataSaver;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -33,7 +33,7 @@ public class BookListMainActivity extends AppCompatActivity {
     public static final int MENU_ID_ADD = 1;
     public static final int MENU_ID_UPDATE = 2;
     public static final int MENU_ID_DELETE = 3;
-    private ArrayList<ShopItem> shopItems;
+    private ArrayList<BookItem> bookItems;
     private MainRecycleViewAdapter mainRecycleViewAdapter;
     private FloatingActionMenu mActionAddButton;
     private FloatingActionButton fab1;
@@ -43,14 +43,19 @@ public class BookListMainActivity extends AppCompatActivity {
             ,result -> {
                 if(result != null){
                     Intent intent=result.getData();
-                    if(result.getResultCode()==InputShopItemActivity.RESULT_CODE_SUCCESS)
+                    if(result.getResultCode()==InputBookActivity.RESULT_CODE_SUCCESS)
                     {
                         Bundle bundle=intent.getExtras();
                         String title= bundle.getString("title");
-                        double price=bundle.getDouble("price");
+                        String author= bundle.getString("author");
+                        String translator= bundle.getString("translator");
+                        String publisher= bundle.getString("publisher");
+                        String isbn= bundle.getString("isbn");
+                        String pubTime= bundle.getString("pubTime");
+
                         int position=bundle.getInt("position");
-                        shopItems.add(position+1, new ShopItem(title,price,R.drawable.book_1) );
-                        new DataSaver().Save(this, shopItems);
+                        bookItems.add(position+1, new BookItem(title,author,translator,publisher,isbn,pubTime) );
+                        new DataSaver().Save(this, bookItems);
                         mainRecycleViewAdapter.notifyItemInserted(position+1);
                     }
                 }
@@ -67,14 +72,15 @@ public class BookListMainActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewMain.setLayoutManager(linearLayoutManager);
 
-
         //load数据
         DataSaver dataSaver=new DataSaver();
-        shopItems =dataSaver.Load(this);
-        if(shopItems.size()==0) {
-            shopItems.add(new ShopItem("item 0", Math.random() * 10, R.drawable.book_1));
+        bookItems =dataSaver.Load(this);
+        if(bookItems.size() == 0){
+            bookItems.add(0,new BookItem("00","00","00","00","00","00"));
         }
-        mainRecycleViewAdapter= new MainRecycleViewAdapter(shopItems);
+        bookItems.add(1,new BookItem("00","00","00","00","00","00"));
+        mainRecycleViewAdapter= new MainRecycleViewAdapter(bookItems);
+
         recyclerViewMain.setAdapter(mainRecycleViewAdapter);
         //设置悬浮按钮点击事件的监听
         setFloatingActionButton();
@@ -85,15 +91,25 @@ public class BookListMainActivity extends AppCompatActivity {
             ,result -> {
                 if(null!=result){
                     Intent intent=result.getData();
-                    if(result.getResultCode()==InputShopItemActivity.RESULT_CODE_SUCCESS)
+                    if(result.getResultCode()==InputBookActivity.RESULT_CODE_SUCCESS)
                     {
                         Bundle bundle=intent.getExtras();
                         String title= bundle.getString("title");
-                        double price=bundle.getDouble("price");
+                        String author= bundle.getString("author");
+                        String translator= bundle.getString("translator");
+                        String publisher= bundle.getString("publisher");
+                        String isbn= bundle.getString("isbn");
+                        String pubTime= bundle.getString("pubTime");
                         int position=bundle.getInt("position");
-                        shopItems.get(position).setTitle(title);
-                        shopItems.get(position).setPrice(price);
-                        new DataSaver().Save(this, shopItems);
+
+                        bookItems.get(position).setTitle(title);
+                        bookItems.get(position).setAuthor(author);
+                        bookItems.get(position).setTranslator(translator);
+                        bookItems.get(position).setPublisher(publisher);
+                        bookItems.get(position).setIsbn(isbn);
+                        bookItems.get(position).setPubTime(pubTime);
+
+                        new DataSaver().Save(this, bookItems);
                         mainRecycleViewAdapter.notifyItemChanged(position);
                     }
                 }
@@ -104,15 +120,14 @@ public class BookListMainActivity extends AppCompatActivity {
         switch(item.getItemId())
         {
             case MENU_ID_ADD:
-                Intent intent= new Intent(this,InputShopItemActivity.class);
+                Intent intent= new Intent(this,InputBookActivity.class);
                 intent.putExtra("position",item.getOrder());
                 addDataLauncher.launch(intent);
                 break;
             case MENU_ID_UPDATE:
-                Intent intentUpdate=new Intent(this, InputShopItemActivity.class);
+                Intent intentUpdate=new Intent(this, InputBookActivity.class);
                 intentUpdate.putExtra("position",item.getOrder());
-                intentUpdate.putExtra("title", shopItems.get(item.getOrder()).getTitle());
-                intentUpdate.putExtra("price", shopItems.get(item.getOrder()).getPrice());
+                intentUpdate.putExtra("title", bookItems.get(item.getOrder()).getTitle());
                 updateDataLauncher.launch(intentUpdate);
                 break;
             case MENU_ID_DELETE:
@@ -123,8 +138,8 @@ public class BookListMainActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                shopItems.remove(item.getOrder());
-                                new DataSaver().Save(BookListMainActivity.this, shopItems);
+                                bookItems.remove(item.getOrder());
+                                new DataSaver().Save(BookListMainActivity.this, bookItems);
                                 mainRecycleViewAdapter.notifyItemRemoved(item.getOrder());
                             }
                         }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -146,7 +161,7 @@ public class BookListMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "fab menu item 1 clicked");
-                Intent intent= new Intent(BookListMainActivity.this,InputShopItemActivity.class);
+                Intent intent= new Intent(BookListMainActivity.this,InputBookActivity.class);
                 intent.putExtra("position",-1);
                 addDataLauncher.launch(intent);
 
@@ -157,7 +172,7 @@ public class BookListMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "fab menu item 2 clicked");
-                Intent intent= new Intent(BookListMainActivity.this,InputShopItemActivity.class);
+                Intent intent= new Intent(BookListMainActivity.this,InputBookActivity.class);
                 intent.putExtra("position",-1);
                 addDataLauncher.launch(intent);
             }
@@ -168,29 +183,35 @@ public class BookListMainActivity extends AppCompatActivity {
     //获取书本列表方法
     public class MainRecycleViewAdapter extends RecyclerView.Adapter<MainRecycleViewAdapter.ViewHolder> {
 
-        private ArrayList<ShopItem> localDataSet;
+        private ArrayList<BookItem> localDataSet;
 
         /**
          * Provide a reference to the type of views that you are using
          * (custom ViewHolder).
          */
+
+        //根据自己要展示的视图而定
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
             private final TextView textViewTitle;
+            private final TextView textViewAuthor;
+//            private final TextView textViewTranslator;
+//            private final TextView textViewPublisher;
+//            private final TextView textViewIsbn;
+//            private final TextView textViewPubTime;
 
-            public TextView getTextViewPrice() {
-                return textViewPrice;
-            }
-
-            private final TextView textViewPrice;
             private final ImageView imageViewImage;
 
             public ViewHolder(View view) {
                 super(view);
                 // Define click listener for the ViewHolder's View
+                textViewAuthor = view.findViewById(R.id.textview_item_price);
+//                textViewTranslator = view.findViewById(R.id.book_translator_edit_text);
+//                textViewPublisher = view.findViewById(R.id.book_publisher_edit_text);
+//                textViewIsbn = view.findViewById(R.id.book_isbn_edit_text);
+//                textViewPubTime = view.findViewById(R.id.book_pubyear_edit_text);
 
                 imageViewImage = view.findViewById(R.id.imageview_item_image);
                 textViewTitle = view.findViewById(R.id.textview_item_caption);
-                textViewPrice = view.findViewById(R.id.textview_item_price);
 
                 view.setOnCreateContextMenuListener(this);
             }
@@ -198,6 +219,21 @@ public class BookListMainActivity extends AppCompatActivity {
             public TextView getTextViewTitle() {
                 return textViewTitle;
             }
+            public TextView gettextViewAuthor() {
+                return textViewAuthor;
+            }
+//            public TextView gettextViewTranslator() {
+//                return textViewTranslator;
+//            }
+//            public TextView gettextViewPublisher() {
+//                return textViewPublisher;
+//            }
+//            public TextView gettextViewIsbn() {
+//                return textViewIsbn;
+//            }
+//            public TextView gettextViewPubTime() {
+//                return textViewPubTime;
+//            }
 
             public ImageView getImageViewImage() {
                 return imageViewImage;
@@ -217,7 +253,7 @@ public class BookListMainActivity extends AppCompatActivity {
          * @param dataSet String[] containing the data to populate views to be used
          * by RecyclerView.
          */
-        public MainRecycleViewAdapter(ArrayList<ShopItem> dataSet) {
+        public MainRecycleViewAdapter(ArrayList<BookItem> dataSet) {
             localDataSet = dataSet;
         }
 
@@ -239,8 +275,12 @@ public class BookListMainActivity extends AppCompatActivity {
             // Get element from your dataset at this position and replace the
             // contents of the view with that element
             viewHolder.getTextViewTitle().setText(localDataSet.get(position).getTitle());
-            viewHolder.getTextViewPrice().setText(localDataSet.get(position).getPrice().toString());
-            viewHolder.getImageViewImage().setImageResource(localDataSet.get(position).getResourceId());
+            viewHolder.gettextViewAuthor().setText(localDataSet.get(position).getAuthor());
+//            viewHolder.gettextViewTranslator().setText(localDataSet.get(position).getTranslator());
+//            viewHolder.gettextViewPublisher().setText(localDataSet.get(position).getPublisher());
+//            viewHolder.gettextViewIsbn().setText(localDataSet.get(position).getIsbn());
+//            viewHolder.gettextViewPubTime().setText(localDataSet.get(position).getPubTime());
+            viewHolder.getImageViewImage().setImageResource(R.drawable.ic_bookshelf);
         }
 
         // Return the size of your dataset (invoked by the layout manager)
