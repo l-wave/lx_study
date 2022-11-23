@@ -3,13 +3,11 @@ package com.example.lx;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -17,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,10 +29,11 @@ import java.util.ArrayList;
 public class BookListMainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    public static final int MENU_ID_ADD = 1;
+    public static final int MENU_ID_DETAIL = 1;
     public static final int MENU_ID_UPDATE = 2;
     public static final int MENU_ID_DELETE = 3;
     private ArrayList<BookItem> bookItems;
+    private SearchView searchView;
     private MainRecycleViewAdapter mainRecycleViewAdapter;
     private FloatingActionMenu mActionAddButton;
     private FloatingActionButton fab1;
@@ -78,13 +78,13 @@ public class BookListMainActivity extends AppCompatActivity {
         if(bookItems.size() == 0){
             bookItems.add(0,new BookItem("00","00","00","00","00","00"));
         }
-        bookItems.add(1,new BookItem("00","00","00","00","00","00"));
         mainRecycleViewAdapter= new MainRecycleViewAdapter(bookItems);
 
         recyclerViewMain.setAdapter(mainRecycleViewAdapter);
         //设置悬浮按钮点击事件的监听
         setFloatingActionButton();
     }
+
 
 
     private ActivityResultLauncher<Intent> updateDataLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult()
@@ -115,19 +115,38 @@ public class BookListMainActivity extends AppCompatActivity {
                 }
             });
 
+    private ActivityResultLauncher<Intent> detailDataLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult()
+            ,result -> {
+                if(null!=result){
+                    if(result.getResultCode()==InputBookActivity.RESULT_CODE_SUCCESS)
+                    {
+                    }
+                }
+            });
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId())
         {
-            case MENU_ID_ADD:
-                Intent intent= new Intent(this,InputBookActivity.class);
-                intent.putExtra("position",item.getOrder());
-                addDataLauncher.launch(intent);
+            case MENU_ID_DETAIL:
+                Intent intentdetail=new Intent(this, InputBookActivity.class);
+                intentdetail.putExtra("position",item.getOrder());
+                intentdetail.putExtra("title", bookItems.get(item.getOrder()).getTitle());
+                intentdetail.putExtra("authors", bookItems.get(item.getOrder()).getAuthor());
+                intentdetail.putExtra("translators", bookItems.get(item.getOrder()).getTranslator());
+                intentdetail.putExtra("publisher", bookItems.get(item.getOrder()).getPublisher());
+                intentdetail.putExtra("isbn", bookItems.get(item.getOrder()).getIsbn());
+                intentdetail.putExtra("pubTime", bookItems.get(item.getOrder()).getPubTime());
+                detailDataLauncher.launch(intentdetail);
                 break;
             case MENU_ID_UPDATE:
                 Intent intentUpdate=new Intent(this, InputBookActivity.class);
                 intentUpdate.putExtra("position",item.getOrder());
                 intentUpdate.putExtra("title", bookItems.get(item.getOrder()).getTitle());
+                intentUpdate.putExtra("authors", bookItems.get(item.getOrder()).getAuthor());
+                intentUpdate.putExtra("translators", bookItems.get(item.getOrder()).getTranslator());
+                intentUpdate.putExtra("publisher", bookItems.get(item.getOrder()).getPublisher());
+                intentUpdate.putExtra("isbn", bookItems.get(item.getOrder()).getIsbn());
+                intentUpdate.putExtra("pubTime", bookItems.get(item.getOrder()).getPubTime());
                 updateDataLauncher.launch(intentUpdate);
                 break;
             case MENU_ID_DELETE:
@@ -160,7 +179,7 @@ public class BookListMainActivity extends AppCompatActivity {
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i(TAG, "fab menu item 1 clicked");
+                //Log.i(TAG, "fab menu item 1 clicked");
                 Intent intent= new Intent(BookListMainActivity.this,InputBookActivity.class);
                 intent.putExtra("position",-1);
                 addDataLauncher.launch(intent);
@@ -171,7 +190,7 @@ public class BookListMainActivity extends AppCompatActivity {
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i(TAG, "fab menu item 2 clicked");
+                //Log.i(TAG, "fab menu item 2 clicked");
                 Intent intent= new Intent(BookListMainActivity.this,InputBookActivity.class);
                 intent.putExtra("position",-1);
                 addDataLauncher.launch(intent);
@@ -195,23 +214,21 @@ public class BookListMainActivity extends AppCompatActivity {
             private final TextView textViewTitle;
             private final TextView textViewAuthor;
 //            private final TextView textViewTranslator;
-//            private final TextView textViewPublisher;
+            private final TextView textViewPublisher;
 //            private final TextView textViewIsbn;
-//            private final TextView textViewPubTime;
+            private final TextView textViewPubTime;
 
-            private final ImageView imageViewImage;
 
             public ViewHolder(View view) {
                 super(view);
                 // Define click listener for the ViewHolder's View
-                textViewAuthor = view.findViewById(R.id.textview_item_price);
+                textViewAuthor = view.findViewById(R.id.list_author_text_view);
 //                textViewTranslator = view.findViewById(R.id.book_translator_edit_text);
-//                textViewPublisher = view.findViewById(R.id.book_publisher_edit_text);
+                textViewPublisher = view.findViewById(R.id.list_publisher_text_view);
 //                textViewIsbn = view.findViewById(R.id.book_isbn_edit_text);
-//                textViewPubTime = view.findViewById(R.id.book_pubyear_edit_text);
+                textViewPubTime = view.findViewById(R.id.list_pubtime_text_view);
 
-                imageViewImage = view.findViewById(R.id.imageview_item_image);
-                textViewTitle = view.findViewById(R.id.textview_item_caption);
+                textViewTitle = view.findViewById(R.id.list_title_text_view);
 
                 view.setOnCreateContextMenuListener(this);
             }
@@ -225,25 +242,23 @@ public class BookListMainActivity extends AppCompatActivity {
 //            public TextView gettextViewTranslator() {
 //                return textViewTranslator;
 //            }
-//            public TextView gettextViewPublisher() {
-//                return textViewPublisher;
-//            }
+            public TextView gettextViewPublisher() {
+                return textViewPublisher;
+            }
 //            public TextView gettextViewIsbn() {
 //                return textViewIsbn;
 //            }
-//            public TextView gettextViewPubTime() {
-//                return textViewPubTime;
-//            }
-
-            public ImageView getImageViewImage() {
-                return imageViewImage;
+            public TextView gettextViewPubTime() {
+                return textViewPubTime;
             }
+
 
             @Override
             public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-                contextMenu.add(0,MENU_ID_ADD,getAdapterPosition(),"Add "+getAdapterPosition());
-                contextMenu.add(0,MENU_ID_UPDATE,getAdapterPosition(),"Update "+getAdapterPosition());
-                contextMenu.add(0,MENU_ID_DELETE,getAdapterPosition(),"Delete "+getAdapterPosition());
+                int position = getAdapterPosition();
+                contextMenu.add(0,MENU_ID_DETAIL,getAdapterPosition(),"Detail");
+                contextMenu.add(0,MENU_ID_UPDATE,getAdapterPosition(), "Update "+localDataSet.get(position).getTitle());
+                contextMenu.add(0,MENU_ID_DELETE,getAdapterPosition(), "Delete "+localDataSet.get(position).getTitle());
             }
         }
 
@@ -277,10 +292,9 @@ public class BookListMainActivity extends AppCompatActivity {
             viewHolder.getTextViewTitle().setText(localDataSet.get(position).getTitle());
             viewHolder.gettextViewAuthor().setText(localDataSet.get(position).getAuthor());
 //            viewHolder.gettextViewTranslator().setText(localDataSet.get(position).getTranslator());
-//            viewHolder.gettextViewPublisher().setText(localDataSet.get(position).getPublisher());
+            viewHolder.gettextViewPublisher().setText(localDataSet.get(position).getPublisher());
 //            viewHolder.gettextViewIsbn().setText(localDataSet.get(position).getIsbn());
-//            viewHolder.gettextViewPubTime().setText(localDataSet.get(position).getPubTime());
-            viewHolder.getImageViewImage().setImageResource(R.drawable.ic_bookshelf);
+            viewHolder.gettextViewPubTime().setText(localDataSet.get(position).getPubTime());
         }
 
         // Return the size of your dataset (invoked by the layout manager)

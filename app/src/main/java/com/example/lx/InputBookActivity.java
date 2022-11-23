@@ -38,10 +38,11 @@ public class InputBookActivity extends AppCompatActivity {
         if(null!=title)
         {
             editTextTitle.setText(title);
-            editTextTitle.setText(author);
-            editTextTitle.setText(translator);
-            editTextTitle.setText(publisher);
-            editTextTitle.setText(isbn);
+            editTextauthor.setText(author);
+            editTexttranslator.setText(translator);
+            editTextpublisher.setText(publisher);
+            editTextisbn.setText(isbn);
+            editTextpubTime.setText(pubTime);
         }
 
 

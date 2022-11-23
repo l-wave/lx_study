@@ -1,34 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item_relative_layout"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="72dp"
+    android:padding="6dp"
+    android:clickable="true">
+
+    <ImageView
+        android:id="@+id/list_cover_image_view"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:padding="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/book_cover_default"
+        android:contentDescription="@string/book_cover_image_view_hint" />
+
+    <TextView
+        android:id="@+id/list_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:ellipsize="marquee"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textColor="@color/colorPrimaryText"
+        android:layout_alignTop="@id/list_cover_image_view"
+        android:layout_marginStart="72dp"
+        android:layout_marginEnd="4dp"
+        android:paddingBottom="5dp"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/list_author_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:textSize="12sp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textColor="@color/black"
+        android:layout_alignTop="@id/list_cover_image_view"
+        android:layout_toEndOf="@+id/list_title_text_view"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="16dp"
+        android:singleLine="true" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        >
+        android:layout_below="@+id/list_title_text_view"
+        android:layout_alignParentStart="true">
 
-        <ImageView
-            android:id="@+id/imageview_item_image"
-            android:layout_width="200dp"
-            android:layout_height="200dp" />
+        <TextView
+            android:id="@+id/list_publisher_text_view"
+            android:layout_width="0dp"
+            android:layout_weight="12"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:textSize="12sp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="72dp"
+            android:layout_marginEnd="16dp"
+            android:singleLine="true" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="103dp"
-            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textview_item_caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/list_pubtime_text_view"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="10sp"
+            android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/textview_item_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
     </LinearLayout>
-</FrameLayout>
+
+
+</RelativeLayout>

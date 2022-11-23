@@ -13,8 +13,13 @@
     <string name="sure_to_delete">Are you sure to delete this item</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-
-
+    <!--上方菜单栏-->
+    <string name="menu_main_rename_bookshelf">Rename Bookshelf</string>
+    <string name="menu_main_delete_bookshelf">Delete Bookshelf</string>
+    <string name="menu_main_delete_label">Delete Label</string>
+    <string name="menu_main_rename_label">Rename Label</string>
+    <string name="menu_main_search">Search</string>
+    <string name="menu_main_sort">Sort</string>
     <!--BookEditActivity（书具体信息）-->
     <string name="book_edit_activity_title">Edit Book Details</string>
     <string name="book_edit_menu_save">Save</string>

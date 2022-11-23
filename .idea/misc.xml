@@ -8,6 +8,7 @@
         <entry key="..\:/Android_project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1545" />
         <entry key="..\:/Android_project/app/src/main/res/drawable/ic_notes.xml" value="0.1825" />
         <entry key="..\:/Android_project/app/src/main/res/drawable/ic_reading_status.xml" value="0.1825" />
+        <entry key="..\:/Android_project/app/src/main/res/drawable/ic_search_white.xml" value="0.1" />
         <entry key="..\:/Android_project/app/src/main/res/drawable/ic_website.xml" value="0.1825" />
         <entry key="..\:/Android_project/app/src/main/res/layout/activity_about.xml" value="0.25364583333333335" />
         <entry key="..\:/Android_project/app/src/main/res/layout/activity_batch_add.xml" value="0.25364583333333335" />
@@ -29,7 +30,7 @@
         <entry key="..\:/Android_project/app/src/main/res/menu/menu_batchadd.xml" value="0.15" />
         <entry key="..\:/Android_project/app/src/main/res/menu/menu_bookdetail.xml" value="0.2" />
         <entry key="..\:/Android_project/app/src/main/res/menu/menu_bookedit.xml" value="0.264" />
-        <entry key="..\:/Android_project/app/src/main/res/menu/menu_main.xml" value="0.2" />
+        <entry key="..\:/Android_project/app/src/main/res/menu/menu_main.xml" value="0.1" />
         <entry key="..\:/Android_project/app/src/main/res/menu/menu_multiselect.xml" value="0.15" />
       </map>
     </option>
