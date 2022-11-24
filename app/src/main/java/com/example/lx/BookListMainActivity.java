@@ -40,7 +40,6 @@ public class BookListMainActivity extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
