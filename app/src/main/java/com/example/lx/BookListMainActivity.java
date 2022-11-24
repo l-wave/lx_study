@@ -15,7 +15,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,37 +32,22 @@ public class BookListMainActivity extends AppCompatActivity {
     public static final int MENU_ID_UPDATE = 2;
     public static final int MENU_ID_DELETE = 3;
     private ArrayList<BookItem> bookItems;
-    private SearchView searchView;
     private MainRecycleViewAdapter mainRecycleViewAdapter;
+    //悬浮按钮对象
     private FloatingActionMenu mActionAddButton;
     private FloatingActionButton fab1;
     private FloatingActionButton fab2;
 
-    private ActivityResultLauncher<Intent> addDataLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult()
-            ,result -> {
-                if(result != null){
-                    Intent intent=result.getData();
-                    if(result.getResultCode()==InputBookActivity.RESULT_CODE_SUCCESS)
-                    {
-                        Bundle bundle=intent.getExtras();
-                        String title= bundle.getString("title");
-                        String author= bundle.getString("author");
-                        String translator= bundle.getString("translator");
-                        String publisher= bundle.getString("publisher");
-                        String isbn= bundle.getString("isbn");
-                        String pubTime= bundle.getString("pubTime");
 
-                        int position=bundle.getInt("position");
-                        bookItems.add(position+1, new BookItem(title,author,translator,publisher,isbn,pubTime) );
-                        new DataSaver().Save(this, bookItems);
-                        mainRecycleViewAdapter.notifyItemInserted(position+1);
-                    }
-                }
-            });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+
+        //主界面
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerViewMain=findViewById(R.id.booklist_recycler_view);
@@ -87,6 +71,29 @@ public class BookListMainActivity extends AppCompatActivity {
 
 
 
+//添加对象
+    private ActivityResultLauncher<Intent> addDataLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult()
+            ,result -> {
+                if(result != null){
+                    Intent intent=result.getData();
+                    if(result.getResultCode()==InputBookActivity.RESULT_CODE_SUCCESS)
+                    {
+                        Bundle bundle=intent.getExtras();
+                        String title= bundle.getString("title");
+                        String author= bundle.getString("author");
+                        String translator= bundle.getString("translator");
+                        String publisher= bundle.getString("publisher");
+                        String isbn= bundle.getString("isbn");
+                        String pubTime= bundle.getString("pubTime");
+
+                        int position=bundle.getInt("position");
+                        bookItems.add(position+1, new BookItem(title,author,translator,publisher,isbn,pubTime) );
+                        new DataSaver().Save(this, bookItems);
+                        mainRecycleViewAdapter.notifyItemInserted(position+1);
+                    }
+                }
+            });
+    //更新对象
     private ActivityResultLauncher<Intent> updateDataLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult()
             ,result -> {
                 if(null!=result){
@@ -114,7 +121,7 @@ public class BookListMainActivity extends AppCompatActivity {
                     }
                 }
             });
-
+//查看对象具体细节
     private ActivityResultLauncher<Intent> detailDataLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult()
             ,result -> {
                 if(null!=result){
@@ -173,6 +180,7 @@ public class BookListMainActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
+    //设置悬浮按钮
     private void setFloatingActionButton() {
         mActionAddButton = (FloatingActionMenu) findViewById(R.id.fab_menu_add);
         fab1 = (FloatingActionButton) findViewById(R.id.fab_menu_item_1);
@@ -197,7 +205,6 @@ public class BookListMainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     //获取书本列表方法
     public class MainRecycleViewAdapter extends RecyclerView.Adapter<MainRecycleViewAdapter.ViewHolder> {

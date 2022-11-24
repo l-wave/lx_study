@@ -9,6 +9,10 @@
     <string name="fab_menu_1">Add Book</string>
     <string name="fab_menu_2">Batch Add</string>
 
+    <!--悬浮添加按钮-->
+    <string name="open">open</string>
+    <string name="close">close</string>
+
     <string name="confirmation">Confirmation</string>
     <string name="sure_to_delete">Are you sure to delete this item</string>
     <string name="yes">Yes</string>
