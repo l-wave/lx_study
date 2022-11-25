@@ -18,6 +18,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <!--上方菜单栏-->
+    <string name="menu_toolbar">Settings</string>
     <string name="menu_main_rename_bookshelf">Rename Bookshelf</string>
     <string name="menu_main_delete_bookshelf">Delete Bookshelf</string>
     <string name="menu_main_delete_label">Delete Label</string>

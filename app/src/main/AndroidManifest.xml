@@ -17,9 +17,6 @@
             android:name=".InputBookActivity"
             android:exported="false" />
         <activity
-            android:name=".DrawerSlidingActivity"
-            android:exported="false" />
-        <activity
             android:name=".BookListMainActivity"
             android:exported="true">
             <intent-filter>

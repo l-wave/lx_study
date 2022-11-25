@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lx.data.BookItem;
 import com.example.lx.data.DataSaver;
+import com.example.lx.view.SlideMenu;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -37,7 +39,9 @@ public class BookListMainActivity extends AppCompatActivity {
     private FloatingActionMenu mActionAddButton;
     private FloatingActionButton fab1;
     private FloatingActionButton fab2;
-
+    //菜单栏实现
+    private ImageButton btn_back;
+    private SlideMenu slideMenu;
 
 
     @Override
@@ -48,6 +52,18 @@ public class BookListMainActivity extends AppCompatActivity {
 
         //主界面
         setContentView(R.layout.activity_main);
+
+
+        btn_back = (ImageButton)findViewById(R.id.menu_book_edit_save);
+        slideMenu = (SlideMenu)findViewById(R.id.slideMenu);
+        //点击返回键打开或关闭Menu
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slideMenu.switchMenu();
+            }
+        });
+
 
         RecyclerView recyclerViewMain=findViewById(R.id.booklist_recycler_view);
 
@@ -67,8 +83,7 @@ public class BookListMainActivity extends AppCompatActivity {
         //设置悬浮按钮点击事件的监听
         setFloatingActionButton();
     }
-
-
+    
 
 //添加对象
     private ActivityResultLauncher<Intent> addDataLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult()

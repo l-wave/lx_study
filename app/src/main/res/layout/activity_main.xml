@@ -1,28 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer_layout"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
-
-    <!-- This LinearLayout represents the contents of the screen  -->
-    <LinearLayout
+    tools:context="com.example.lx.BookListMainActivity">
+    <com.example.lx.view.SlideMenu
+        android:id="@+id/slideMenu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!-- The ActionBar displayed at the top -->
-        <include
-            layout="@layout/toolbar_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-        <!-- The main content view where fragments are loaded -->
-        <include layout="@layout/activity_main_coordinate" />
-
-
-    </LinearLayout>
-
-</androidx.drawerlayout.widget.DrawerLayout>
+        android:layout_height="match_parent">
+        <!--菜单界面的布局-->
+        <include layout="@layout/layout_menu"/>
+        <!--主界面的布局-->
+        <include layout="@layout/activity_input_shop_item"/>
+    </com.example.lx.view.SlideMenu>
+</RelativeLayout>
