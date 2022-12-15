@@ -1,14 +1,18 @@
 package com.example.lx;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -24,6 +28,7 @@ import com.example.lx.data.DataSaver;
 import com.example.lx.view.SlideMenu;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.hjq.toast.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -40,8 +45,14 @@ public class BookListMainActivity extends AppCompatActivity {
     private FloatingActionButton fab1;
     private FloatingActionButton fab2;
     //菜单栏实现
-    private ImageButton btn_back;
+    private ImageView btn_back;
     private SlideMenu slideMenu;
+    //搜索栏实现
+    private EditText mEditText;
+    private ImageView mImageView;
+
+    private TextView mTextView;
+    Context context;
 
 
     @Override
@@ -52,9 +63,10 @@ public class BookListMainActivity extends AppCompatActivity {
 
         //主界面
         setContentView(R.layout.activity_main);
+        context = this;
 
 
-        btn_back = (ImageButton)findViewById(R.id.menu_book_edit_save);
+        btn_back = (ImageView)findViewById(R.id.menu_book_edit_save);
         slideMenu = (SlideMenu)findViewById(R.id.slideMenu);
         //点击返回键打开或关闭Menu
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -82,8 +94,99 @@ public class BookListMainActivity extends AppCompatActivity {
         recyclerViewMain.setAdapter(mainRecycleViewAdapter);
         //设置悬浮按钮点击事件的监听
         setFloatingActionButton();
+    //设置搜索
+        initView();
     }
-    
+
+
+    //搜索框
+    private void initView() {
+        mTextView = (TextView) findViewById(R.id.textview);
+        mEditText = (EditText) findViewById(R.id.edittext);
+        mImageView = (ImageView) findViewById(R.id.imageview);
+
+        //设置删除图片的点击事件
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //把EditText内容设置为空
+                mEditText.setText("");
+
+            }
+        });
+
+        //EditText添加监听
+        mEditText.addTextChangedListener(new TextWatcher() {
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}//文本改变之前执行
+
+            @Override
+            //文本改变的时候执行
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //如果长度为0
+                if (s.length() == 0) {
+                    //隐藏“删除”图片
+                    mImageView.setVisibility(View.GONE);
+                } else {//长度不为0
+                    //显示“删除图片”
+                    mImageView.setVisibility(View.VISIBLE);
+
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {//文本改变之后执行
+
+            }
+
+        });
+
+        mTextView.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                //如果输入框内容为空，提示请输入搜索内容
+                String str = mEditText.getText().toString().trim();
+                if(str.isEmpty()){
+                    ToastUtils.show("请输入您要搜索的内容");
+                }else {
+                    //判断cursor是否为空
+                    int l = bookItems.size();
+                    String name;
+                    for(int i = 0;i < l;i++) {
+                        name = bookItems.get(i).getTitle();
+                        if(name.equals(str)) {
+                            showListView(i);
+                        }
+
+                    }
+
+
+
+//                    if (columnCount == 0) {
+//                        ToastUtils.show("对不起，没有你要搜索的内容");
+//                    }
+
+                }
+
+            }
+        });
+    }
+
+    private void showListView(int i) {
+
+        Intent intentdetail=new Intent(this, InputBookActivity.class);
+        intentdetail.putExtra("position",i);
+        intentdetail.putExtra("title", bookItems.get(i).getTitle());
+        intentdetail.putExtra("authors", bookItems.get(i).getAuthor());
+        intentdetail.putExtra("translators", bookItems.get(i).getTranslator());
+        intentdetail.putExtra("publisher", bookItems.get(i).getPublisher());
+        intentdetail.putExtra("isbn", bookItems.get(i).getIsbn());
+        intentdetail.putExtra("pubTime", bookItems.get(i).getPubTime());
+        detailDataLauncher.launch(intentdetail);
+
+    }
+
 
 //添加对象
     private ActivityResultLauncher<Intent> addDataLauncher= registerForActivityResult(new ActivityResultContracts.StartActivityForResult()

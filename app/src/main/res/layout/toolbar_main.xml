@@ -8,15 +8,66 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     android:background="@color/colorPrimaryDark">
 
+    <ImageView
+        android:id="@+id/menu_book_edit_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src ="@drawable/ic_settings"/>
+
     <Spinner
         android:id="@+id/toolbar_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <ImageButton
-        android:id="@+id/menu_book_edit_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src ="@drawable/ic_settings"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/edittext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:hint="请输入搜索内容"
+                android:maxLength="10"
+                android:paddingLeft="15dp"
+                android:singleLine="true"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:paddingRight="20dp"
+                android:src="@drawable/ic_delete"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="搜索"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
 
 </androidx.appcompat.widget.Toolbar>
