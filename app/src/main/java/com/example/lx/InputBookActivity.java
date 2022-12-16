@@ -25,7 +25,9 @@ public class InputBookActivity extends AppCompatActivity {
         String publisher=this.getIntent().getStringExtra("publisher");
         String isbn=this.getIntent().getStringExtra("isbn");
         String pubTime=this.getIntent().getStringExtra("pubTime");
-
+        String note = this.getIntent().getStringExtra("note");
+        String label = this.getIntent().getStringExtra("label");
+        String website = this.getIntent().getStringExtra("website");
 
         EditText editTextTitle=findViewById(R.id.book_title_edit_text);
         EditText editTextauthor=findViewById(R.id.book_author_edit_text);
@@ -33,7 +35,9 @@ public class InputBookActivity extends AppCompatActivity {
         EditText editTextpublisher=findViewById(R.id.book_publisher_edit_text);
         EditText editTextisbn=findViewById(R.id.book_isbn_edit_text);
         EditText editTextpubTime=findViewById(R.id.book_pubyear_edit_text);
-
+        EditText editTextnote=findViewById(R.id.book_notes_edit_text);
+        EditText editTextlabel=findViewById(R.id.book_labels_edit_text);
+        EditText editTextwebsite=findViewById(R.id.book_website_edit_text);
 
         if(null!=title)
         {
@@ -43,6 +47,9 @@ public class InputBookActivity extends AppCompatActivity {
             editTextpublisher.setText(publisher);
             editTextisbn.setText(isbn);
             editTextpubTime.setText(pubTime);
+            editTextnote.setText(note);
+            editTextlabel.setText(label);
+            editTextwebsite.setText(website);
         }
 
 
@@ -57,7 +64,10 @@ public class InputBookActivity extends AppCompatActivity {
                 bundle.putString("translator",editTexttranslator.getText().toString());
                 bundle.putString("publisher",editTextpublisher.getText().toString());
                 bundle.putString("isbn",editTextisbn.getText().toString());
-                bundle.putString("isbn",editTextpubTime.getText().toString());
+                bundle.putString("pubTime",editTextpubTime.getText().toString());
+                bundle.putString("note",editTextnote.getText().toString());
+                bundle.putString("label",editTextlabel.getText().toString());
+                bundle.putString("website",editTextwebsite.getText().toString());
                 bundle.putInt("position",position);
 
                 intent.putExtras(bundle);

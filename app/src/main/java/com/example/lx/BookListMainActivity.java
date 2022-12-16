@@ -91,7 +91,15 @@ public class BookListMainActivity extends AppCompatActivity {
         DataSaver dataSaver=new DataSaver();
         bookItems =dataSaver.Load(this);
         if(bookItems.size() == 0){
-            bookItems.add(0,new BookItem("00","00","00","00","00","00"));
+            bookItems.add(0,new BookItem("lx",
+                    "lx",
+                    "lx",
+                    "lx",
+                    "lx",
+                    "xl",
+                    "lx",
+                    "lx_app",
+                    "https://github.com/l-wave/lx_study"));
         }
         mainRecycleViewAdapter= new MainRecycleViewAdapter(bookItems);
 
@@ -191,6 +199,9 @@ public class BookListMainActivity extends AppCompatActivity {
         intentdetail.putExtra("publisher", bookItems.get(i).getPublisher());
         intentdetail.putExtra("isbn", bookItems.get(i).getIsbn());
         intentdetail.putExtra("pubTime", bookItems.get(i).getPubTime());
+        intentdetail.putExtra("note", bookItems.get(i).getNote());
+        intentdetail.putExtra("label", bookItems.get(i).getLabel());
+        intentdetail.putExtra("website", bookItems.get(i).getWebsite());
         detailDataLauncher.launch(intentdetail);
 
     }
@@ -210,9 +221,12 @@ public class BookListMainActivity extends AppCompatActivity {
                         String publisher= bundle.getString("publisher");
                         String isbn= bundle.getString("isbn");
                         String pubTime= bundle.getString("pubTime");
+                        String note= bundle.getString("note");
+                        String label= bundle.getString("label");
+                        String website= bundle.getString("website");
 
                         int position=bundle.getInt("position");
-                        bookItems.add(position+1, new BookItem(title,author,translator,publisher,isbn,pubTime) );
+                        bookItems.add(position+1, new BookItem(title,author,translator,publisher,isbn,pubTime,note,label,website) );
                         new DataSaver().Save(this, bookItems);
                         mainRecycleViewAdapter.notifyItemInserted(position+1);
                     }
@@ -232,6 +246,9 @@ public class BookListMainActivity extends AppCompatActivity {
                         String publisher= bundle.getString("publisher");
                         String isbn= bundle.getString("isbn");
                         String pubTime= bundle.getString("pubTime");
+                        String note= bundle.getString("note");
+                        String label= bundle.getString("label");
+                        String website= bundle.getString("website");
                         int position=bundle.getInt("position");
 
                         bookItems.get(position).setTitle(title);
@@ -240,6 +257,9 @@ public class BookListMainActivity extends AppCompatActivity {
                         bookItems.get(position).setPublisher(publisher);
                         bookItems.get(position).setIsbn(isbn);
                         bookItems.get(position).setPubTime(pubTime);
+                        bookItems.get(position).setNote(note);
+                        bookItems.get(position).setLabel(label);
+                        bookItems.get(position).setWebsite(website);
 
                         new DataSaver().Save(this, bookItems);
                         mainRecycleViewAdapter.notifyItemChanged(position);
@@ -268,6 +288,9 @@ public class BookListMainActivity extends AppCompatActivity {
                 intentdetail.putExtra("publisher", bookItems.get(item.getOrder()).getPublisher());
                 intentdetail.putExtra("isbn", bookItems.get(item.getOrder()).getIsbn());
                 intentdetail.putExtra("pubTime", bookItems.get(item.getOrder()).getPubTime());
+                intentdetail.putExtra("note", bookItems.get(item.getOrder()).getNote());
+                intentdetail.putExtra("label", bookItems.get(item.getOrder()).getLabel());
+                intentdetail.putExtra("website", bookItems.get(item.getOrder()).getWebsite());
                 detailDataLauncher.launch(intentdetail);
                 break;
             case MENU_ID_UPDATE:
@@ -279,6 +302,9 @@ public class BookListMainActivity extends AppCompatActivity {
                 intentUpdate.putExtra("publisher", bookItems.get(item.getOrder()).getPublisher());
                 intentUpdate.putExtra("isbn", bookItems.get(item.getOrder()).getIsbn());
                 intentUpdate.putExtra("pubTime", bookItems.get(item.getOrder()).getPubTime());
+                intentUpdate.putExtra("note", bookItems.get(item.getOrder()).getNote());
+                intentUpdate.putExtra("label", bookItems.get(item.getOrder()).getLabel());
+                intentUpdate.putExtra("website", bookItems.get(item.getOrder()).getWebsite());
                 updateDataLauncher.launch(intentUpdate);
                 break;
             case MENU_ID_DELETE:

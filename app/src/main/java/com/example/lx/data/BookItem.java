@@ -5,13 +5,16 @@ import java.io.Serializable;
 public class BookItem implements Serializable {
 
 
-    public BookItem(String title, String author, String translator, String publisher, String isbn,String pubTime) {
+    public BookItem(String title, String author, String translator, String publisher, String isbn,String pubTime,String note,String label,String website) {
         this.title = title;
         this.author = author;
         this.pubTime = pubTime;
         this.isbn = isbn;
         this.publisher = publisher;
         this.translator = translator;
+        this.note = note;
+        this.label = label;
+        this.website = website;
     }
 
     public String getTitle() {
@@ -56,6 +59,26 @@ public class BookItem implements Serializable {
         this.pubTime = pubTime;
     }
 
+    public String getNote() {
+        return note;
+    }
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
     private String title;
     private String translator;
@@ -63,5 +86,7 @@ public class BookItem implements Serializable {
     private String publisher;
     private String isbn;
     private String pubTime;
-
+    private String note;
+    private String label;
+    private String website;
 }
