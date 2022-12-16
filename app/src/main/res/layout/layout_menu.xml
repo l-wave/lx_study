@@ -29,6 +29,7 @@
             android:drawableLeft="@drawable/ic_reading_status" />
         <TextView
             style="@style/MenuTabText"
+            android:id="@+id/set_button"
             android:text="Settings"
             android:drawableLeft="@drawable/ic_settings"/>
         <TextView

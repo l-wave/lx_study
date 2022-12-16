@@ -56,6 +56,8 @@ public class BookListMainActivity extends AppCompatActivity {
     //about实现
     private TextView About_text;
 
+    //setting实现
+    private TextView set_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +102,8 @@ public class BookListMainActivity extends AppCompatActivity {
         initView();
         //设置about
         setAboutActionButton();
-
+        //设置Setting
+        setActionButton();
     }
 
 
@@ -315,6 +318,18 @@ public class BookListMainActivity extends AppCompatActivity {
 
     }
 
+    //设置Settings按钮
+    private void setActionButton() {
+        set_text = (TextView)findViewById(R.id.set_button);
+        //点击启动activity
+        set_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BookListMainActivity.this,SettingActivity.class));
+            }
+        });
+
+    }
     //设置悬浮按钮
     private void setFloatingActionButton() {
 
