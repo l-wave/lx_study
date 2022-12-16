@@ -33,6 +33,7 @@
             android:drawableLeft="@drawable/ic_settings"/>
         <TextView
             style="@style/MenuTabText"
+            android:id="@+id/About_button"
             android:text="Abouts"
             android:drawableLeft="@drawable/ic_notes"/>
     </LinearLayout>

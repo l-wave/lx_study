@@ -50,9 +50,11 @@ public class BookListMainActivity extends AppCompatActivity {
     //搜索栏实现
     private EditText mEditText;
     private ImageView mImageView;
-
     private TextView mTextView;
     Context context;
+
+    //about实现
+    private TextView About_text;
 
 
     @Override
@@ -94,8 +96,11 @@ public class BookListMainActivity extends AppCompatActivity {
         recyclerViewMain.setAdapter(mainRecycleViewAdapter);
         //设置悬浮按钮点击事件的监听
         setFloatingActionButton();
-    //设置搜索
+        //设置搜索
         initView();
+        //设置about
+        setAboutActionButton();
+
     }
 
 
@@ -297,8 +302,22 @@ public class BookListMainActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
+    //设置ABOUT按钮
+    private void setAboutActionButton() {
+        About_text = (TextView)findViewById(R.id.About_button);
+        //点击启动activity
+        About_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BookListMainActivity.this,AboutActivity.class));
+            }
+        });
+
+    }
+
     //设置悬浮按钮
     private void setFloatingActionButton() {
+
         mActionAddButton = (FloatingActionMenu) findViewById(R.id.fab_menu_add);
         fab1 = (FloatingActionButton) findViewById(R.id.fab_menu_item_1);
         fab1.setOnClickListener(new View.OnClickListener() {
